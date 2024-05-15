@@ -1,0 +1,25 @@
+[websites]
+
+[websites.'pracuj.pl']
+address = "https://it.pracuj.pl/praca"
+enabled = true
+
+[websites.'justjoin.it']
+address = "https://justjoin.it/"
+enabled = true
+
+[websites.'OLX']
+address = "https://www.olx.pl/praca/informatyka/"
+enabled = true
+
+[websites.'RocketJobs']
+address = "https://rocketjobs.pl/"
+enabled = true
+
+[websites.'Solid.Jobs']
+address = "https://solid.jobs/offers/it"
+enabled = true
+
+[properties]
+level = ["junior"]
+skills = ["python", "sql"]
