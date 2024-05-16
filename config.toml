@@ -2,7 +2,7 @@
 
 [websites.'pracuj.pl']
 address = "https://it.pracuj.pl/praca"
-enabled = true
+enabled = false
 
 [websites.'justjoin.it']
 address = "https://justjoin.it/"
@@ -10,15 +10,15 @@ enabled = true
 
 [websites.'OLX']
 address = "https://www.olx.pl/praca/informatyka/"
-enabled = true
+enabled = false
 
 [websites.'RocketJobs']
 address = "https://rocketjobs.pl/"
-enabled = true
+enabled = false
 
 [websites.'Solid.Jobs']
 address = "https://solid.jobs/offers/it"
-enabled = true
+enabled = false
 
 [properties]
 level = ["junior"]
