@@ -2,6 +2,7 @@ import tomllib
 import sys
 import pprint
 from justjoinit import JustJoinIT
+import csv
 
 
 def main():
@@ -12,6 +13,7 @@ def main():
     search = user_conf['properties']['level'] + user_conf['properties']['skills']
 
     offers = JustJoinIT.offers(search)
+    save_offers(offers)
     pp = pprint.PrettyPrinter(indent=4, sort_dicts=False)
     pp.pprint(offers)
     # if matches -> save offer to json with 
@@ -35,6 +37,29 @@ def load_config():
     except FileNotFoundError:
         sys.exit("config.toml not found!")
 
+
+def load_founded():
+    try:
+        visited = {}
+        with open("founded.csv", newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                visited.add(row['url'])
+        return visited
+
+    except FileNotFoundError:
+        return {}
+    
+    
+def save_offers(offers_list):
+    if len(offers_list) == 0: return
+    visitied = load_founded()
+    fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills']
+    with open('founded.csv', 'a') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        for offer in offers_list:
+            if offer['url'] not in visitied:
+                writer.writerow(offer)
 
 if __name__ == '__main__':
     main()
