@@ -27,7 +27,7 @@ class JustJoinIT:
             salary = offer.findChild(class_='css-17pspck').get_text()
             loc = offer.findChild(class_='css-11qgze1').get_text()
             is_remote = offer.findChild(class_='css-1am4i4o').get_text() == 'Fully remote'
-            skills = [x.get_text() for x in offer.findAll(class_='css-d6miz5')]
+            skills = [x.get_text() for x in offer.findAll(class_='css-1am4i4o')]
             refined_data.append({'title': title,
                             'url': url,
                             'salary': salary,
@@ -46,3 +46,7 @@ class JustJoinIT:
             data = cls.get_job_offers()
 
         return cls.scope_offers(data)
+    
+    @classmethod
+    def say_hello(cls):
+        print(f"{cls.__name__} says hello!")
