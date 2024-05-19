@@ -24,8 +24,3 @@ class RocketJobs:
             data = cls.get_job_offers()
 
         return cls.scope_offers(data)
-
-
-    @classmethod
-    def say_hello(cls):
-        print(f"{cls.__name__} says hello!")

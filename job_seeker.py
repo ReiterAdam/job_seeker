@@ -14,11 +14,8 @@ def main():
     # load config
     user_conf = load_config()
 
-    # search jobs on portal within matching properties
-    search = user_conf['properties']['level'] + user_conf['properties']['skills']
-
     # search website with provided keywords
-    offers_list = JustJoinIT.offers(search)
+    offers_list = search_for_offers(user_conf)
 
     # Save offers and output a list of new elements
     saved = save_offers(offers_list)
@@ -63,14 +60,17 @@ def save_offers(offers_list):
     with open('founded.csv', 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if write_header: writer.writeheader()
-        for offer in offers_list:
-            if offer['url'] not in visitied:
-                writer.writerow(offer)
-                saved.append(offer)
+        for website in offers_list:
+            for offer in website:
+                if offer['url'] not in visitied:
+                    writer.writerow(offer)
+                    saved.append(offer)
     return saved
 
 
 def search_for_offers(user_config):
+    """function performs scrapping on enabled websites and returns list of offers lists"""
+    # define supported websites
     search = {'pracuj.pl': PracujPL,
             'justjoin.it': JustJoinIT,
             'OLX': OLX,
@@ -79,9 +79,16 @@ def search_for_offers(user_config):
     
     sites = user_config['websites']
 
+    # search jobs on portal within matching properties
+    search_keywords = user_config['properties']['level'] + user_config['properties']['skills']
+
+    scraped_offers = []
+
     for site in sites:
         if sites[site]['enabled']:
-            search[site].say_hello()
+            scraped_offers.append(search[site].offers(search_keywords))
+
+    return scraped_offers
 
 
 if __name__ == '__main__':
