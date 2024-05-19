@@ -1,8 +1,13 @@
 import tomllib
 import sys
+import os
 import pprint
-from justjoinit import JustJoinIT
 import csv
+from justjoinit import JustJoinIT
+from olx import OLX
+from rocketjobs import RocketJobs
+from pracujpl import PracujPL
+from solidjobs import SolidJobs
 
 
 def main():
@@ -13,10 +18,10 @@ def main():
     search = user_conf['properties']['level'] + user_conf['properties']['skills']
 
     # search website with provided keywords
-    offers = JustJoinIT.offers(search)
+    offers_list = JustJoinIT.offers(search)
 
     # Save offers and output a list of new elements
-    saved = save_offers(offers)
+    saved = save_offers(offers_list)
     print("Offers saved: ")
     pp = pprint.PrettyPrinter(indent=4, sort_dicts=False)
     pp.pprint(saved)
@@ -35,7 +40,7 @@ def load_config():
 def load_founded():
     """function returns set of urls leading to already founded offers"""
     try:
-        visited = {}
+        visited = set()
         with open("founded.csv", newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -52,13 +57,31 @@ def save_offers(offers_list):
     visitied = load_founded()
     saved = []
     fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills']
+    write_header = False
+    if not os.path.isfile('founded.csv'):
+        write_header = True
     with open('founded.csv', 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        if write_header: writer.writeheader()
         for offer in offers_list:
             if offer['url'] not in visitied:
                 writer.writerow(offer)
                 saved.append(offer)
     return saved
+
+
+def search_for_offers(user_config):
+    search = {'pracuj.pl': PracujPL,
+            'justjoin.it': JustJoinIT,
+            'OLX': OLX,
+            'RocketJobs': RocketJobs,
+            'Solid.Jobs': SolidJobs}
+    
+    sites = user_config['websites']
+
+    for site in sites:
+        if sites[site]['enabled']:
+            search[site].say_hello()
 
 
 if __name__ == '__main__':
