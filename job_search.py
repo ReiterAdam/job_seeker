@@ -3,11 +3,11 @@ import sys
 import os
 import pprint
 import csv
-from justjoinit import JustJoinIT
-from olx import OLX
-from rocketjobs import RocketJobs
-from pracujpl import PracujPL
-from solidjobs import SolidJobs
+from classes.justjoinit import JustJoinIT
+from classes.olx import OLX
+from classes.rocketjobs import RocketJobs
+from classes.pracujpl import PracujPL
+from classes.solidjobs import SolidJobs
 
 
 def main():

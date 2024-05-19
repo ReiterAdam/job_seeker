@@ -1,7 +1,7 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-class OLX:
+class RocketJobs:
 
     @classmethod
     def get_job_offers(cls, keywords=""):
