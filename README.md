@@ -6,7 +6,7 @@ Job seeker is a Python script which automates collecting job offers from website
 + ~~pracuj.pl~~
 + ~~olx.pl~~
 + ~~rocketjobs.pl~~
-+ ~~solid.jobs~~
++ **solid.jobs**
 
 
 ## Features
