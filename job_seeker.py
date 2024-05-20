@@ -78,15 +78,11 @@ def search_for_offers(user_config):
             'Solid.Jobs': SolidJobs}
     
     sites = user_config['websites']
-
-    # search jobs on portal within matching properties
-    search_keywords = user_config['properties']['level'] + user_config['properties']['skills']
-
     scraped_offers = []
 
     for site in sites:
         if sites[site]['enabled']:
-            scraped_offers.append(search[site].offers(search_keywords))
+            scraped_offers.append(search[site].offers(user_config['properties']))
 
     return scraped_offers
 
