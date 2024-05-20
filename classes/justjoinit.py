@@ -1,5 +1,6 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import re
 
 class JustJoinIT:
 
@@ -27,7 +28,7 @@ class JustJoinIT:
             salary = offer.findChild(class_='css-17pspck').get_text()
             loc = offer.findChild(class_='css-11qgze1').get_text()
             is_remote = offer.findChild(class_='css-1am4i4o').get_text() == 'Fully remote'
-            skills = [x.get_text() for x in offer.findAll(class_='css-1am4i4o')]
+            skills = [x.get_text() for x in offer.findAll(class_=re.compile(r"skill-tag-\d"))]
             refined_data.append({'title': title,
                             'url': url,
                             'salary': salary,
