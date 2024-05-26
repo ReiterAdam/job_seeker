@@ -3,6 +3,7 @@ import sys
 import os
 import pprint
 import csv
+from datetime import date
 from classes.justjoinit import JustJoinIT
 from classes.olx import OLX
 from classes.rocketjobs import RocketJobs
@@ -11,6 +12,7 @@ from classes.solidjobs import SolidJobs
 
 
 def main():
+    # add optional argv for custom config (?)
     # load config
     user_conf = load_config()
 
@@ -53,16 +55,18 @@ def save_offers(offers_list):
     if len(offers_list) == 0: return
     visitied = load_founded()
     saved = []
-    fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills']
+    fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills', 'collected on']
     write_header = False
     if not os.path.isfile('founded.csv'):
         write_header = True
+    today = str(date.today())
     with open('founded.csv', 'a') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if write_header: writer.writeheader()
         for website in offers_list:
             for offer in website:
                 if offer['url'] not in visitied:
+                    offer['collected on'] = today
                     writer.writerow(offer)
                     saved.append(offer)
     return saved
