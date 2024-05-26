@@ -7,13 +7,15 @@ class JustJoinIT:
     @classmethod
     def get_job_offers(cls, keywords=""):
         url = "https://justjoin.it/" + keywords
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions() 
+        options.add_argument("--headless") 
+        driver = webdriver.Firefox(options=options)
         driver.get(url)
-        driver.implicitly_wait(10)
+        # driver.implicitly_wait(10)
         
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         offers = soup.find_all('div', class_='css-2crog7')
-        driver.implicitly_wait(10)
+        # driver.implicitly_wait(10)
         driver.quit()
         
         return offers

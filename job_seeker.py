@@ -55,7 +55,7 @@ def save_offers(offers_list):
     if len(offers_list) == 0: return
     visitied = load_founded()
     saved = []
-    fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills', 'collected on']
+    fieldnames = ['title', 'url', 'salary', 'localization', 'is_remote', 'skills', 'collected_on']
     write_header = False
     if not os.path.isfile('founded.csv'):
         write_header = True
@@ -66,7 +66,7 @@ def save_offers(offers_list):
         for website in offers_list:
             for offer in website:
                 if offer['url'] not in visitied:
-                    offer['collected on'] = today
+                    offer['collected_on'] = today
                     writer.writerow(offer)
                     saved.append(offer)
     return saved

@@ -6,13 +6,15 @@ class SolidJobs:
     @classmethod
     def get_job_offers(cls, keywords=""):
         url = 'https://solid.jobs/offers/it;' + keywords
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions() 
+        options.add_argument("--headless") 
+        driver = webdriver.Firefox(options=options)
         driver.get(url)
-        driver.implicitly_wait(10)
+        # driver.implicitly_wait(10)
 
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         offers = soup.find_all('offer-list-item')
-        driver.implicitly_wait(10)
+        # driver.implicitly_wait(10)
         driver.quit()
 
         return offers
@@ -40,7 +42,12 @@ class SolidJobs:
     @classmethod
     def offers(cls, properties=[]):
         if len(properties) > 0:
-            keywords = "searchTerm=" + ','.join(properties['level'] + properties['skills'])
+            exp = properties['level'][0].strip()
+            if exp in ['junior', 'regular', 'senior']:
+                exp = 'experiences=' + exp
+            else:
+                exp = ''
+            keywords = "searchTerm=" + ','.join(properties['skills']) + ';' + exp
             data = cls.get_job_offers(keywords)
         else:
             data = cls.get_job_offers()
