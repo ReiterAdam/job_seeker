@@ -55,7 +55,7 @@ Each website has its `address` and boolean `enabled` value, which indicates if t
 2. List of properties with following schema:
 ```
 [properties]
-level = ["<junior/mid/senior>"]
+level = ["<junior/regular/senior>"]
 skills = ["list", "of", "skills"]
 ```
 
@@ -78,3 +78,13 @@ skills = ["python", "sql"]
    ```
 4. Go to `founded.csv` and look for offers!   
 
+
+## Output
+The `founded.csv` contains 7 following columns:
++ **title** - which contains job title from the offer,
++ **url** - contains URL leading to page with offer,
++ **salary** - stores salary from job offer,
++ **localization** - contains information where office is located,
++ **is_remote** - boolean value which indicates if remote working is allowed or not,
++ **skills** - list of main skills required,
++ **collected_on** - contains date that indicates when offer was scraped.
