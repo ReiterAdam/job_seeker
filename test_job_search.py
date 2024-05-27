@@ -6,16 +6,26 @@ from bs4 import BeautifulSoup
 
 def test_load_config():
     assert load_config() != None
+    assert type(load_config()) == type(dict())
 
 
 def test_save_offers():
     assert save_offers([]) == None
 
 
-# def test_search_for_offers():
-    
-#     search_for_offers(load_config())
+def test_search_for_offers():
+    config = {'websites': {'justjoin.it': {'address': 'https://justjoin.it/', 'enabled': True}}, 'properties': {'level': ['junior'], 'skills': ['python']}}
+    just_join_it = search_for_offers(config) 
+    assert just_join_it != None    
+    assert len(just_join_it) > 0
+    assert type(just_join_it) == type(list())
 
+    config = {'websites': {'Solid.Jobs': {'address': 'https://solid.jobs/offers/it', 'enabled': True}}, 'properties': {'level': ['regular'], 'skills': ['python']}}
+    solid_jobs = search_for_offers(config) 
+    assert solid_jobs != None    
+    assert len(solid_jobs) > 0
+    assert type(solid_jobs) == type(list())   
+    
 
 def test_justjoin_it_scope():
     soup = BeautifulSoup(open("test_scrapper/Job Offers IT - Just Join IT.html"), 'html.parser')
