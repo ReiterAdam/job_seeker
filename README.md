@@ -1,3 +1,5 @@
+# Jobseeker
+
 ## Description
 
 Job seeker is a Python script which automates collecting job offers from websites and gathers them at one place. User can define preffered keywords for his searches and websites which he wants to monitor. Every time search is running, program compares already found offers and saves only new ones - offers are compared based on URL. Currently supported websites:
